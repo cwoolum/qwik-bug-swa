@@ -5,12 +5,26 @@ import Counter from "~/components/starter/counter/counter";
 import Hero from "~/components/starter/hero/hero";
 import Infobox from "~/components/starter/infobox/infobox";
 import Starter from "~/components/starter/next-steps/next-steps";
+import { useAuthSignin } from "./plugin@auth";
 
 export default component$(() => {
+  const signIn = useAuthSignin();
+
   return (
     <>
       <Hero />
       <Starter />
+
+      <button
+        onClick$={() =>
+          signIn.submit({
+            providerId: "github",
+            options: { callbackUrl: "http://qwik-auth-example.com/dashboard" },
+          })
+        }
+      >
+        Sign In
+      </button>
 
       <div role="presentation" class="ellipsis"></div>
       <div role="presentation" class="ellipsis ellipsis-purple"></div>
